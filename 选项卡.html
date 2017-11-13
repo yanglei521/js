@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    #tabs{
+        width: 500px;
+        height: 300px;
+        border: 1px gray solid;
+        margin: 30px auto;
+    }
+        #lis{
+            list-style: none;
+            width: 500px;
+            height: 50px;
+            background: rosybrown;
+
+        }
+        #lis li{
+            width: 125px;
+            height: 50px;
+            border: 1px gray solid;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 50px;
+            border-right: none;
+        }
+        #lis li:hover{
+            cursor: pointer;
+
+
+        }
+        #dis{
+            width: 500px;
+            height: 250px;
+
+        }
+        #dis div{
+            width: 500px;
+            height: 250px;
+            border: 1px solid rosybrown;
+            display: none;
+            text-align: center;
+            line-height: 250px;
+            box-sizing: border-box;
+
+        }
+        #dis .sel{
+            display: block;
+        }
+        #lis .int{
+            background: gray;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="tabs">
+    <ul id="lis">
+        <li class="int">aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+        <li>ddd</li>
+    </ul>
+    <div id="dis">
+        <div class="sel">AAA</div>
+        <div>BBB</div>
+        <div>CCC</div>
+        <div>DDD</div>
+    </div>
+</div>
+
+</body>
+<script>
+    var lis=document.getElementById("lis").getElementsByTagName("li");
+    var dis=document.getElementById("dis").getElementsByTagName("div");
+    var cur_index=0;
+    for(var i=0; i<lis.length; i++){
+        lis[i]._index=i;
+        lis[i].onmouseover=function () {
+                lis[cur_index].className="";
+                dis[cur_index].className="";
+                this.className="int";
+                dis[this._index].className="sel";
+                cur_index=this._index;
+        }
+
+    }
+</script>
+</html>

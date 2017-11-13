@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background: #eee;
+    }
+    #slide {
+        width: 520px;
+        height: 280px;
+        margin: 30px auto;
+        position: relative;
+    }
+    #pics:hover{
+        cursor: pointer;
+    }
+    #pics div{
+        width: 520px;
+        height: 280px;
+        display: none;
+        position: absolute; z-index: 10;
+    }
+    #pics .current{
+        display: block;
+    }
+    #dian{
+
+        list-style: none;
+        height: 20px;
+
+        position: absolute;z-index: 100;
+        left:35%;
+        bottom: 0;
+    }
+    #dian li{
+        margin:0 10px;
+        float: left;
+        width: 20px;
+        height: 20px;
+        border: 1px solid seagreen;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .sel{
+        background: red;
+    }
+    ol{
+        list-style: none;
+    }
+    .arrow{
+        width: 40px;
+        background: #eeeeee;
+        position: absolute;z-index: 200;
+        display: none;
+        cursor: pointer;
+    }
+    .arrow_left{
+        left: 0;
+        top: 30%;
+    }
+    .arrow_right{
+        right: 0;
+        top: 30%;
+    }
+</style>
+<body>
+<div id="slide">
+    <div id="pics">
+        <div class="current"><img src="img/1.jpg"></div>
+        <div><img src="img/2.jpg"></div>
+        <div><img src="img/3.jpg"></div>
+    </div>
+    <ul id="dian">
+        <li class="sel"></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ol>
+        <li class="arrow arrow_left"><img src="img/arrow-left.png"></li>
+        <li class="arrow arrow_right"><img src="img/arrow-right.png"></li>
+
+    </ol>
+</div>
+<script>
+    var box=document.getElementById("slide");
+    var divs=document.getElementById("pics").getElementsByTagName("div");
+    var lis=document.getElementById("dian").getElementsByTagName("li");
+    var arrows=document.getElementsByClassName("arrow");
+    var current_index=0;
+    var t;
+    box.onmousemove=function () {
+        clearInterval(t);
+        for(var i=0; i<arrows.length; i++){
+            arrows[i].style.display="block";
+            //console.log(arrows[i]);
+        }
+
+    };
+    box.onmouseout=function () {
+        t=setInterval(move,2000);
+        for(var i=0; i<arrows.length; i++){
+            arrows[i].style.display="none";
+        }
+    };
+    t=setInterval(move,2000);
+
+    arrows[1].onclick=function () {
+        move();
+    };
+    arrows[0].onclick=function () {
+        prePic();
+    };
+
+    for(var i=0; i<lis.length; i++){
+        lis[i]._index=i;
+        lis[i].onclick=function () {
+
+            lis[current_index].className="";
+            this.className="sel";
+            divs[current_index].className="";
+            divs[this._index].className="current";
+
+
+            current_index=this._index;
+        };
+    }
+
+
+    function move() {
+        divs[current_index].className="";
+        lis[current_index].className="";
+        current_index++;
+        if(current_index==divs.length){
+            current_index=0;
+        }
+        divs[current_index].className="current";
+        lis[current_index].className="sel";
+    }
+    function prePic() {
+        divs[current_index].className="";
+        lis[current_index].className="";
+        current_index--;
+        if(current_index==-1){
+            current_index=divs.length-1;
+        }
+        divs[current_index].className="current";
+        lis[current_index].className="sel";
+    }
+
+</script>
+</body>
+</html>
